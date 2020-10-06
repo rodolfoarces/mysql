@@ -1,7 +1,11 @@
+-- 1. Crear la base de datos ComicsOnline.
 -- Base de datos
 CREATE DATABASE ComicsOnline;
 
 USE ComicsOnline;
+
+-- 2. Crear las tablas Clientes, Facturas, TipoPago, ListaArticulos, Comics, Colecciones, Editorial con sus 
+-- respectivos atributos de acuerdo al (DER=Diagrama Entidad Relacion). 
 
 -- Tablas sin llave foranea
 CREATE TABLE TiposPago ( TipoPago VARCHAR(15), PRIMARY KEY (TipoPago));
@@ -17,11 +21,9 @@ CREATE TABLE Clientes ( DNI VARCHAR(9), Nombre VARCHAR(20), Apellido1 VARCHAR(30
                     Email VARCHAR(40), Contrasena VARCHAR(30), PRIMARY KEY (DNI) );
 
 -- Tablas con llaves foraneas
-
-CREATE TABLE Facturas ( idFacturas INT AUTO_INCREMENT, DNIComprador VARCHAR(9), 
-                    FechaFactura DATE, TipoPago VARCHAR(15), Pagado Boolean, PRIMARY KEY (idFacturas),
-                    FOREIGN KEY (TipoPago) REFERENCES TiposPago(TipoPago), FOREIGN KEY (DNIComprador)
-                    REFERENCES Clientes(DNI));
+CREATE TABLE Facturas ( idFacturas INT, DNIComprador VARCHAR(9), FechaFactura DATE, 
+                    TipoPago VARCHAR(15), Pagado Boolean, PRIMARY KEY (idFacturas), FOREIGN KEY (TipoPago)
+                    REFERENCES TiposPago(TipoPago), FOREIGN KEY (DNIComprador) REFERENCES Clientes(DNI));
 
 CREATE TABLE Comics ( ISBN BIGINT(13), Titulo VARCHAR(30), Numero INT(3), Coleccion SMALLINT, 
                     FechaPublicacion DATE, Formato VARCHAR(10), Genero VARCHAR(20), Precio DECIMAL(4,2),
